@@ -1,6 +1,6 @@
 // src/contexts/AuthContext.jsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import API from '../api/api';
 
 const AuthContext = createContext();
 
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
   // Register user
   const register = async (name, email, password, role) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, {
+      const response = await API.post('/auth/register', {
         name,
         email,
         password,
@@ -41,7 +41,8 @@ export const AuthProvider = ({ children }) => {
       return true; // registration successful
     } catch (error) {
       console.error('Registration failed:', error.response?.data || error.message);
-      alert(error.response?.data?.error || 'Registration failed');
+      const errorMessage = error.response?.data?.error || error.response?.data?.message || 'Registration failed';
+      alert(errorMessage);
       return false; // registration failed
     }
   };
@@ -49,18 +50,19 @@ export const AuthProvider = ({ children }) => {
   // Login user
   const login = async (email, password, role) => {
     try {
-      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
+      const response = await API.post('/auth/login', {
         email,
         password,
-        role,
       });
-      setCurrentUser(data.user);
-      localStorage.setItem('examEvalUser', JSON.stringify(data.user));
-      localStorage.setItem('examEvalToken', data.token);
-      return data.user; // return user for role-based redirection
+      const { data, token } = response.data;
+      setCurrentUser(data);
+      localStorage.setItem('examEvalUser', JSON.stringify(data));
+      localStorage.setItem('examEvalToken', token);
+      return data; // return user for role-based redirection
     } catch (error) {
       console.error('Login failed:', error.response?.data || error.message);
-      alert(error.response?.data?.error || 'Login failed');
+      const errorMessage = error.response?.data?.error || error.response?.data?.message || 'Login failed';
+      alert(errorMessage);
       throw error;
     }
   };

@@ -24,13 +24,18 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!formData.email || !formData.password) {
+      alert('Please fill in all fields');
+      return;
+    }
+    
     try {
-      const user = await login(formData.email, formData.password, userType);
+      const user = await login(formData.email, formData.password);
       navigate(user.role === 'teacher' ? '/teacher-dashboard' : '/student-dashboard');
-
     } catch (error) {
       console.error('Login error:', error);
-      alert('Login failed. Check credentials.');
+      // Error is already handled in AuthContext
     }
   };
 

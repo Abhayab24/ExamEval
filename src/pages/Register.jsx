@@ -28,6 +28,11 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+      alert('Please fill in all fields');
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       alert('Passwords do not match');
       return;
@@ -42,7 +47,6 @@ const Register = () => {
     if (success) {
       navigate(userType === 'teacher' ? '/teacher-dashboard' : '/student-dashboard');
     }
-    // If not successful, user remains on the page with alert already shown
   };
 
   const handleInputChange = (e) => {

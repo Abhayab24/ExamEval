@@ -9,6 +9,11 @@ import { sendTokenResponse } from '../utils/sendTokenResponse.js';
 export const register = asyncHandler(async (req, res, next) => {
   const { name, email, password, role } = req.body;
 
+  // Validate required fields
+  if (!name || !email || !password || !role) {
+    return next(new ErrorResponse('Please provide all required fields', 400));
+  }
+
   // Check if user already exists
   const existingUser = await User.findOne({ email });
   if (existingUser) {
@@ -31,6 +36,11 @@ export const register = asyncHandler(async (req, res, next) => {
 // @access  Public
 export const login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
+
+  // Validate email and password
+  if (!email || !password) {
+    return next(new ErrorResponse('Please provide email and password', 400));
+  }
 
   // Find user and include password
   const user = await User.findOne({ email }).select('+password');
