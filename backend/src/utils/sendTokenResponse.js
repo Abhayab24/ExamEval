@@ -1,7 +1,7 @@
 // Get token from model, create cookie and send response
-export const sendTokenResponse = (user, statusCode, res) => {
+const sendTokenResponse = (user, statusCode, res) => {
   // Create token
-  const token = user.generateToken();
+  const token = user.getSignedJwtToken();
 
   const options = {
     expires: new Date(
@@ -14,18 +14,22 @@ export const sendTokenResponse = (user, statusCode, res) => {
     options.secure = true;
   }
 
-  res
-    .status(statusCode)
-    .cookie('token', token, options)
-    .json({
-      success: true,
-      token,
-      data: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        avatar: user.avatar
-      }
-    });
+  res.status(statusCode).cookie('token', token, options).json({
+    success: true,
+    token,
+    data: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      subjects: user.subjects,
+      class: user.class,
+      institution: user.institution,
+      avatar: user.avatar,
+      preferences: user.preferences,
+      createdAt: user.createdAt
+    }
+  });
 };
+
+export default sendTokenResponse;

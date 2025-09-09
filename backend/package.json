@@ -1,16 +1,17 @@
 {
   "name": "exameval-backend",
   "version": "1.0.0",
-  "description": "Backend API for ExamEval - AI-powered exam evaluation system",
+  "description": "Backend API for ExamEval AI-powered exam evaluation system",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "jest"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "exameval",
+    "exam",
+    "evaluation",
     "ai",
     "education",
     "api"
@@ -18,32 +19,19 @@
   "author": "ExamEval Team",
   "license": "MIT",
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.11",
-    "bcryptjs": "^2.4.3",
-    "compression": "^1.7.4",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "express-rate-limit": "^7.1.5",
-    "express-validator": "^7.0.1",
-    "helmet": "^7.1.0",
+    "mongoose": "^7.5.0",
+    "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
-    "mammoth": "^1.6.0",
-    "mongodb": "^6.18.0",
-    "mongoose": "^8.0.3",
-    "morgan": "^1.10.0",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "express-rate-limit": "^6.10.0",
+    "express-validator": "^7.0.1",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.9.7",
-    "openai": "^4.20.1",
-    "pdf-parse": "^1.1.1",
-    "sharp": "^0.33.1",
-    "tailwindcss": "^4.1.11",
-    "tesseract.js": "^5.0.4"
+    "dotenv": "^16.3.1",
+    "colors": "^1.4.0"
   },
   "devDependencies": {
-    "jest": "^29.7.0",
-    "nodemon": "^3.0.2",
-    "supertest": "^6.3.3"
+    "nodemon": "^3.0.1"
   }
 }
